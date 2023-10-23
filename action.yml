@@ -1,18 +1,25 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Publish Sisense dashboards'
+description: 'Pulls latest version from master origin'
+author: 'N Mehmed'
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
+  token:
+    description: 'Sisense API token'
     required: true
-    default: '1000'
+  sisenseHost:
+    description: 'Sisense Host Url'
+    required: true
+  projectId:
+    description: 'Project id in sisense'
+    required: true
+  branch:
+    description: 'Branch name'
+    required: false
+    default: 'main'
 
 # Define your outputs here.
-outputs:
-  time:
-    description: 'Your output description here'
+# outputs:
 
 runs:
   using: node20
