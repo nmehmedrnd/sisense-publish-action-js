@@ -23422,8 +23422,10 @@ async function run() {
       projectId,
       branch
     )
+    core.debug('Discarding un commited cahnges')
     await sisenseClient.discardUncommitedChanges()
 
+    core.debug('Starting pulling latest from branch')
     await sisenseClient.pullLatestToMaster()
   } catch (error) {
     // Fail the workflow run if an error occurs
@@ -23443,6 +23445,7 @@ module.exports = {
 
 const _ = __nccwpck_require__(250)
 const axios = __nccwpck_require__(8757)
+const core = __nccwpck_require__(2186)
 
 class SisenseClient {
   constructor(token, url, projectId, branch) {
@@ -23458,12 +23461,15 @@ class SisenseClient {
       Authorization: `Bearer ${this.token}`
     }
 
+    core.debug('getting latest checksum')
     const resCheckSum = await axios({
       url: `${this.url}${apiV2ProjectsPath}status`,
       headers: authHeaders
     })
 
     const checksum = resCheckSum.statusChecksum
+
+    core.debug(`latest checksum ${checksum}`)
 
     const headers = {
       ...additionalHeaders,
@@ -23474,6 +23480,10 @@ class SisenseClient {
 
     const url = `${this.url}${apiV2ProjectsPath}${path}`
 
+    core.debug(
+      `Making request to url ${url} with method ${method} and body ${body}`
+    )
+
     const res = await axios({
       headers,
       method,
@@ -23481,12 +23491,16 @@ class SisenseClient {
       data: body
     })
 
+    core.debug(`response: ${res}`)
+
     return res.data
   }
 
   async discardUncommitedChanges() {
     const headDiff = await this._makeRequest('diff/HEAD/working')
     const arrayOffChanges = _.keys(headDiff.fileDiffs)
+
+    core.debug(`array of changes ${arrayOffChanges}`)
 
     if (_.size(arrayOffChanges) > 0) {
       const res = await this._makeRequest(
