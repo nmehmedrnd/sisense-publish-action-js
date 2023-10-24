@@ -18,8 +18,10 @@ async function run() {
       projectId,
       branch
     )
+    core.debug('Discarding un commited cahnges')
     await sisenseClient.discardUncommitedChanges()
 
+    core.debug('Starting pulling latest from branch')
     await sisenseClient.pullLatestToMaster()
   } catch (error) {
     // Fail the workflow run if an error occurs
