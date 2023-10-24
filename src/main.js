@@ -18,6 +18,10 @@ async function run() {
       projectId,
       branch
     )
+    // Currently sisense is making some random changes
+    // in files, we don't want to brake our pull process because of
+    // un commited changes, thats why we first we discard changes
+    // and then pull latest from master
     core.debug('Discarding un commited cahnges')
     await sisenseClient.discardUncommitedChanges()
 

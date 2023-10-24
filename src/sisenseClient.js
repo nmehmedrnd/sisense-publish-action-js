@@ -78,6 +78,8 @@ class SisenseClient {
         remoteBranch: this.branch
       }
     )
+
+    await this._makeRequest('sync', 'POST', {}, {})
   }
 }
 
