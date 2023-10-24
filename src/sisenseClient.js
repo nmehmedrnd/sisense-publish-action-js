@@ -22,7 +22,7 @@ class SisenseClient {
       headers: authHeaders
     })
 
-    const checksum = resCheckSum.statusChecksum
+    const checksum = resCheckSum.data.statusChecksum
 
     core.debug(`latest checksum ${checksum}`)
 
