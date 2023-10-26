@@ -11,12 +11,20 @@ async function run() {
     const sisenseHost = core.getInput('sisenseHost')
     const projectId = core.getInput('projectId')
     const branch = core.getInput('branch')
+    const dashboards = core.getInput('dashboards')
+    const designerToken = core.getInput('designerToken') || token
+
+    const additionalDashboardsToPublish = dashboards
+      ? dashboards.split(' ')
+      : []
 
     const sisenseClient = new SisenseClient(
       token,
       sisenseHost,
       projectId,
-      branch
+      branch,
+      additionalDashboardsToPublish,
+      designerToken
     )
     // Currently sisense is making some random changes
     // in files, we don't want to brake our pull process because of

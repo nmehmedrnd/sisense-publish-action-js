@@ -7,5 +7,6 @@ This action makes exactly that, it can be used in workflow to make needed reques
 token - Bearer token for sisense API
 sisenseHost - Sisense host url with ending /
 projectId - project id in sisense
-branch - branch name (default to main)
+branch - branch name (defaults to main)
+dashboards - additional dashboards to publish
 ```
