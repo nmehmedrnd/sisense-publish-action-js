@@ -17,6 +17,12 @@ inputs:
     description: 'Branch name'
     required: false
     default: 'main'
+  dashboards:
+    description: 'Dashboards to publish, additional to current changes. For multiple dashboards split by space.'
+    required: false
+  designerToken:
+    description: 'Sisense API token which has access to publish dashboards, if it is not provided it will default to token'
+    required: false
 
 # Define your outputs here.
 # outputs:
